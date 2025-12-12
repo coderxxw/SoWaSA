@@ -12,7 +12,7 @@ def gelu(x):
 def swish(x):
     return x * torch.sigmoid(x)
 
-ACT2FN = {"gelu": gelu, "relu": F.relu, "swish": swish, 'silu':F.silu}
+ACT2FN = {"gelu": gelu, "relu": F.relu, "swish": swish, 'silu':F.silu, 'sigmoid':F.sigmoid, 'tanh':F.tanh}
 
 
 class LFMGate(nn.Module):
@@ -31,9 +31,13 @@ class LFMGate(nn.Module):
         )
 
     def forward(self, x):
+        """
+        输入 x: 频域特征 (Complex Tensor)
+        """
         magnitude = x.abs()
         epsilon = 1e-8
-        phase = torch.angle(x + epsilon)
+        x_safe = x + torch.complex(torch.tensor(epsilon, device=x.device), torch.tensor(0.0, device=x.device))
+        phase = torch.angle(x_safe)
         mag_features = torch.mean(magnitude, dim=1)
         phase_features = torch.mean(phase, dim=1)
         combined_features = torch.cat([mag_features, phase_features], dim=-1)

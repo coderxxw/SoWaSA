@@ -128,6 +128,16 @@ def parse_args():
     elif args.model_type.lower() == 'gru4rec':
         parser.add_argument("--gru_hidden_size", default=64, type=int, help="hidden size of GRU")
     
+    elif args.model_type.lower() == 'muffin':
+        parser.add_argument("--alpha", default=0.1, type=float, help="auxiliary loss weight")
+        parser.add_argument("--beta", default=0.01, type=float, help="load balancing loss weight")
+        parser.add_argument("--kernel_size", default=3, type=int, help="kernel size for conv")
+        parser.add_argument("--inner_size", default=256, type=int, help="inner size for feed forward")
+        parser.add_argument("--num_bands", default=4, type=int, help="number of frequency bands")
+        parser.add_argument("--freq_dropout_prob", default=0.1, type=float, help="frequency dropout probability")
+        parser.add_argument("--conv_layers", default=2, type=int, help="number of conv layers")
+
+
     elif args.model_type.lower() == 'sowasa':
         parser.add_argument("--filter_type", default='sym2', type=str, help="小波滤波器类型 (haar, db2, sym2)")
         parser.add_argument("--dwt_levels", default=2, type=int, help="小波分解层数")

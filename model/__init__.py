@@ -5,7 +5,7 @@ from model.gru4rec import GRU4RecModel
 from model.bert4rec import BERT4RecModel
 from model.fmlprec import FMLPRecModel
 from model.fearec import FEARecModel
-
+from model.muffin import MuffinModel
 from model.sowasa  import SoWaSARecModel
 
 MODEL_DICT = {
@@ -17,4 +17,5 @@ MODEL_DICT = {
     "fmlprec": FMLPRecModel,
     "fearec": FEARecModel,
     "sowasa": SoWaSARecModel,
+    "muffin": MuffinModel,
     }
